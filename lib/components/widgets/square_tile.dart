@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SquareTile extends StatelessWidget {
   final String imgPath;
+  final double? height;
 
-  const SquareTile({super.key, required this.imgPath});
+  const SquareTile({super.key, required this.imgPath, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class SquareTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         color: Colors.grey[200],
       ),
-      child: Image.asset(imgPath, height: 40,),
+      child: Image.asset(imgPath, height: height??40),
 
     );
   }
