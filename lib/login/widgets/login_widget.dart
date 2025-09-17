@@ -1,10 +1,11 @@
-import 'package:application/components/widgets/common_button.dart';
-import 'package:application/components/widgets/common_textfield.dart';
-import 'package:application/components/widgets/square_tile.dart';
+import 'package:application/common/widgets/common_button.dart';
+import 'package:application/common/widgets/common_textfield.dart';
+import 'package:application/common/widgets/square_tile.dart';
+import 'package:application/home/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginWidget extends StatefulWidget {
-  LoginWidget({super.key});
+  const LoginWidget({super.key});
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
 }
@@ -12,6 +13,10 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  checkLoginDetails(username, password) {
+    MaterialPageRoute(builder: (context) => HomePage());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   'Welcome back you\'ve been missed!',
                   style: TextStyle(color: Colors.grey[700], fontSize: 16),
                 ),
-            
+
                 //
                 //USERNAME TEXTFIELD
                 //
@@ -45,7 +50,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   hintText: 'Username',
                   obscureText: false,
                 ),
-            
+
                 //
                 //PASSWORD TEXTFIELD
                 //
@@ -55,12 +60,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                   hintText: 'Password',
                   obscureText: true,
                 ),
-            
+
                 //
                 //FORGET PASSWORD (DUMMY)
                 //
                 const SizedBox(height: 10),
-            
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -77,10 +82,28 @@ class _LoginWidgetState extends State<LoginWidget> {
                 //SIGNIN BUTTON
                 //
                 const SizedBox(height: 25),
-                CommonButton(onTap: () {}),
-            
+                GestureDetector(
+                  onTap: () {
+                    checkLoginDetails(
+                      usernameController.text,
+                      passwordController.text,
+                    );
+                  },
+                  child: CommonButton(
+                    onTap: () {
+                      if (usernameController.text == "a@b.com" &&
+                          passwordController.text == "12345") {
+                        debugPrint("Function Called");
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
+                      }
+                    },
+                  ),
+                ),
+
                 const SizedBox(height: 50),
-            
+
                 // OR CONTINUE WITH
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -125,12 +148,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                   children: [
                     Text("Not a member?"),
                     const SizedBox(width: 4),
-                    Text("Register Now",
-                    style: TextStyle(color: Colors.blue),
-                    ),
-            
+                    Text("Register Now", style: TextStyle(color: Colors.blue)),
                   ],
-                )
+                ),
               ],
             ),
           ),
